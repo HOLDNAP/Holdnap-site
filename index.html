@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" href="holdnap-logo.webp">
+<meta property="og:title" content="Holdnap ($HOLDNAP)">
+<meta property="og:description" content="The meme coin you don't have to watch. Buy. Hold. Nap.">
+<meta property="og:image" content="holdnap-meme.webp">
+<title>Holdnap ($HOLDNAP)</title>
+<meta name="description" content="Holdnap ($HOLDNAP): the meme coin you don't have to watch. Buy. Hold. Nap.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Nunito:wght@400;600;800&family=Chivo+Mono:wght@400;600&family=Anton&display=swap">
+<style>
+/* Layout: a cozy bedroom at 3 AM. Hero is an illustrated room (window + moon, bed, duck on the pillow, nightstand lamp, alarm clock with a real Snooze button). Below: "Rules of the Nap" (what nap means in practice), a Do Not Disturb door hanger holding the contract address, a quilt-bar tokenomics with an alarm-bell unlock schedule, a bedtime routine, tonight's schedule, a dream journal of memes, and house rules. Single warm-night look by choice. */
+:root{
+  --plum:#1d1631;     /* the dark bedroom */
+  --plum-2:#271e42;   /* furniture and cards */
+  --plum-3:#33285a;   /* raised / hover */
+  --seam:#43376f;     /* stitching, borders */
+  --lamp:#ffb85c;     /* warm lamp light, the accent */
+  --cream:#f7edda;    /* pillow, sheets, light text */
+  --cream-2:#cbbfd9;  /* secondary text */
+  --mask:#9aa5ff;     /* sleep-mask periwinkle */
+  --mint:#74d8c4;     /* zipper mint, "safe" */
+  --display:"Bagel Fat One","Cooper Black","Arial Rounded MT Bold",sans-serif;
+  --body:"Nunito","Segoe UI",system-ui,sans-serif;
+  --mono:"Chivo Mono",ui-monospace,Menlo,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;overflow-x:clip}
+body{background:var(--plum);color:var(--cream);font-family:var(--body);font-size:17px;line-height:1.6;overflow-x:hidden;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
+  background-image:radial-gradient(circle at 20% 10%,rgba(255,184,92,.07),transparent 40%),radial-gradient(rgba(247,237,218,.05) 1px,transparent 1.5px);
+  background-size:auto,28px 28px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:20;background:var(--plum)}
+.wrap{max-width:1100px;margin:0 auto}
+a:focus-visible,button:focus-visible{outline:3px solid var(--lamp);outline-offset:3px;border-radius:12px}
+h1,h2,h3{font-weight:400}
+
+/* top bar */
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;margin:0 calc(-1 * max(16px,env(safe-area-inset-left,0px)));
+  padding:12px max(16px,env(safe-area-inset-right,0px)) 12px max(16px,env(safe-area-inset-left,0px));background:color-mix(in srgb,var(--plum) 88%,transparent);backdrop-filter:blur(8px);border-bottom:2px dashed var(--seam)}
+.bar{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--display);font-size:22px;color:var(--cream);text-decoration:none}
+.brand img{width:34px;height:34px;border-radius:50%}
+nav{display:flex;gap:18px;margin-left:auto}
+nav a{color:var(--cream-2);text-decoration:none;font-weight:600;font-size:15px}
+nav a:hover{color:var(--cream)}
+.dnd-pill{margin-left:6px;font-family:var(--mono);font-size:12px;color:var(--plum);background:var(--lamp);border-radius:999px;padding:5px 12px;white-space:nowrap}
+@media (max-width:820px){nav{display:none}.dnd-pill{margin-left:auto}}
+
+.btn{display:inline-flex;align-items:center;gap:8px;padding:14px 22px;border-radius:18px;font:800 16px var(--body);text-decoration:none;color:var(--cream);background:var(--plum-2);border:2px solid var(--seam);cursor:pointer;transition:transform .15s}
+.btn{max-width:100%;justify-content:center;text-align:center}
+.btn:hover{transform:translateY(-2px)}
+.btn.lamp{background:var(--lamp);border-color:var(--lamp);color:#2a1a08}
+
+/* hero */
+.hero{display:grid;grid-template-columns:.85fr 1.15fr;gap:32px;align-items:center;padding-block:44px 24px}
+.hero > *{min-width:0}
+@media (max-width:900px){.hero{grid-template-columns:1fr;padding-block:24px 8px}.hero .copy{order:2}}
+.shh{font-family:var(--mono);font-size:13px;color:var(--lamp);letter-spacing:.12em;text-transform:uppercase}
+h1{font-family:var(--display);font-size:clamp(56px,10vw,104px);line-height:.9;margin:10px 0 6px;color:var(--cream);letter-spacing:.01em}
+.tag{font-family:var(--display);font-size:clamp(22px,3.4vw,30px);color:var(--lamp);margin:0 0 14px}
+.lede{color:var(--cream-2);max-width:42ch;margin:0 0 24px}
+.btns{display:flex;gap:12px;flex-wrap:wrap}
+
+/* the room */
+.room{position:relative;aspect-ratio:4/3;width:100%;max-width:100%;border-radius:32px;overflow:hidden;border:2px solid var(--seam);
+  background:linear-gradient(180deg,#241b3f 0%,#211838 62%,#2b2147 62%,#2b2147 100%)}
+.window{position:absolute;left:7%;top:8%;width:30%;height:38%;border-radius:18px 18px 8px 8px;background:linear-gradient(180deg,#0e0c22,#1b1a46);border:6px solid #3a2e63;overflow:hidden}
+.window::before,.window::after{content:"";position:absolute;background:#3a2e63}
+.window::before{left:50%;top:0;bottom:0;width:5px;transform:translateX(-50%)}
+.window::after{top:50%;left:0;right:0;height:5px;transform:translateY(-50%)}
+.moon{position:absolute;right:14%;top:14%;width:26%;aspect-ratio:1;border-radius:50%;box-shadow:-9px 6px 0 0 #ffe7a8;transform:rotate(-20deg)}
+.tw{position:absolute;width:3px;height:3px;border-radius:50%;background:#fff;animation:tw 3s ease-in-out infinite}
+.nightlamp{position:absolute;right:6%;bottom:38%;width:14%;aspect-ratio:1/1.6}
+.nightlamp .shade{position:absolute;top:0;left:0;right:0;height:42%;background:var(--lamp);clip-path:polygon(18% 0,82% 0,100% 100%,0 100%);border-radius:4px}
+.nightlamp .pole{position:absolute;left:47%;top:40%;width:6%;height:48%;background:#6c5a9c}
+.nightlamp .base{position:absolute;left:25%;right:25%;bottom:0;height:12%;border-radius:8px;background:#6c5a9c}
+.glow{position:absolute;right:-6%;bottom:22%;width:46%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(255,184,92,.38),transparent 65%);animation:breathe 7s ease-in-out infinite;pointer-events:none}
+.stand{position:absolute;right:3%;bottom:14%;width:24%;height:24%;background:#3d3068;border-radius:10px;border:2px solid var(--seam)}
+.clock{position:absolute;right:20%;bottom:38%;width:22%;min-width:96px;padding:6px 6px 8px;border-radius:14px;background:#120f24;border:3px solid #5b4b8e;text-align:center}
+.clock .digits{font-family:var(--mono);font-weight:600;color:#ff6b6b;font-size:clamp(14px,2.6vw,22px);letter-spacing:.04em;text-shadow:0 0 8px rgba(255,107,107,.6);font-variant-numeric:tabular-nums}
+.clock .digits .colon{animation:blink 1s steps(1) infinite}
+.clock .ampm{font-family:var(--mono);font-size:10px;color:#b98a8a}
+.bed{position:absolute;left:4%;right:30%;bottom:6%;height:44%}
+.headboard{position:absolute;left:0;top:-30%;width:16%;height:110%;border-radius:22px 22px 6px 6px;background:#5b4b8e;border:3px solid #6e5ca8}
+.mattress{position:absolute;left:6%;right:0;top:26%;bottom:0;border-radius:16px;background:var(--cream)}
+.blanket{position:absolute;left:30%;right:-2%;top:8%;bottom:-4%;border-radius:22px 22px 16px 16px;
+  background-color:#e3a73d;
+  background-image:repeating-linear-gradient(45deg,transparent 0 18px,rgba(120,70,10,.35) 18px 20px),repeating-linear-gradient(-45deg,transparent 0 18px,rgba(120,70,10,.35) 18px 20px);
+  border:3px solid #b77d1f;box-shadow:inset 0 10px 0 rgba(255,255,255,.12)}
+.pillow{position:absolute;left:8%;top:6%;width:30%;height:48%;border-radius:40% 40% 34% 34%;background:#fff6e6;border:3px solid #e6d6b8}
+.duck{position:absolute;left:12%;top:-34%;width:26%;aspect-ratio:1;border-radius:50%;overflow:hidden;border:4px solid #fff6e6;box-shadow:0 6px 0 rgba(0,0,0,.18);animation:breathe 4.5s ease-in-out infinite;transform-origin:50% 80%}
+.duck img{width:100%;height:100%;object-fit:cover}
+.room.jolt .duck{animation:jolt .5s ease-in-out 1}
+.zz{position:absolute;font-family:var(--display);color:var(--cream);opacity:0;animation:float 5.5s ease-in infinite}
+.zz.a{left:33%;top:20%;font-size:22px}.zz.b{left:38%;top:12%;font-size:30px;animation-delay:1.8s}.zz.c{left:43%;top:6%;font-size:18px;animation-delay:3.6s}
+.bubble{position:absolute;left:30%;top:4%;max-width:46%;background:var(--cream);color:#2a1d48;font-weight:800;font-size:clamp(12px,1.8vw,15px);padding:8px 12px;border-radius:16px;opacity:0;transform:translateY(6px);transition:opacity .25s,transform .25s;pointer-events:none}
+.bubble::after{content:"";position:absolute;left:18px;bottom:-8px;border:8px solid transparent;border-top-color:var(--cream);border-bottom:0}
+.bubble.show{opacity:1;transform:none}
+.snooze-row{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:14px}
+.snooze{font:800 16px var(--body);padding:14px 22px;border-radius:18px;border:0;background:#ff6b6b;color:#2a0d0d;cursor:pointer;box-shadow:0 5px 0 #b84343;transition:transform .08s,box-shadow .08s}
+.snooze:active{transform:translateY(4px);box-shadow:0 1px 0 #b84343}
+.snooze-count{font-family:var(--mono);font-size:14px;color:var(--cream-2)}
+
+/* sections */
+section{padding-block:64px 0}
+.kicker{font-family:var(--mono);font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--mask);margin:0 0 8px}
+h2{font-family:var(--display);font-size:clamp(34px,5.5vw,56px);line-height:1;margin:0 0 26px;text-wrap:balance}
+h2 .w{color:var(--lamp)}
+.card{background:var(--plum-2);border:2px solid var(--seam);border-radius:26px;padding:24px}
+
+/* rules of the nap */
+.rules{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+@media (max-width:760px){.rules{grid-template-columns:1fr}}
+.rule{position:relative;background:var(--plum-2);border:2px dashed var(--seam);border-radius:26px;padding:24px 24px 22px 24px;min-width:0}
+.rule .no{font-family:var(--mono);font-size:12px;color:var(--lamp);letter-spacing:.12em;text-transform:uppercase}
+.rule h3{font-family:var(--display);font-size:26px;line-height:1.1;margin:6px 0 8px}
+.rule p{margin:0;color:var(--cream-2)}
+.rule .proof{display:inline-block;margin-top:12px;font-family:var(--mono);font-size:12px;color:var(--mint);border:1px solid color-mix(in srgb,var(--mint) 50%,transparent);border-radius:999px;padding:4px 10px}
+
+/* door hanger */
+.door{display:grid;grid-template-columns:auto 1fr;gap:28px;align-items:center}
+@media (max-width:760px){.door{grid-template-columns:1fr}}
+.door > *{min-width:0}
+.hanger{position:relative;width:min(260px,70vw);margin:0 auto;background:var(--lamp);color:#2a1a08;border-radius:24px 24px 30px 30px;padding:88px 22px 26px;text-align:center;transform:rotate(-4deg);box-shadow:0 14px 0 rgba(0,0,0,.25)}
+.hanger::before{content:"";position:absolute;top:22px;left:50%;width:62px;height:62px;margin-left:-31px;border-radius:50%;background:var(--plum);box-shadow:inset 0 0 0 6px #e09a3f}
+.hanger b{display:block;font-family:var(--display);font-size:34px;line-height:.95}
+.hanger span{display:block;margin-top:8px;font-weight:800;font-size:14px}
+.ca-box{display:grid;gap:12px}
+.ca-status{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:13px;color:var(--lamp)}
+.ca-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.ca-row code{flex:1 1 280px;min-width:0;font-family:var(--mono);font-size:15px;background:var(--plum);border:2px solid var(--seam);border-radius:14px;padding:12px 14px;color:var(--cream);overflow-wrap:anywhere}
+.ca-row button{font:800 15px var(--body);padding:12px 18px;border-radius:14px;border:0;background:var(--mask);color:#141433;cursor:pointer}
+.ca-row button[disabled]{background:var(--plum-3);color:var(--cream-2);cursor:not-allowed}
+
+/* tokenomics */
+.quilt{display:flex;height:64px;border-radius:20px;overflow:hidden;border:3px solid var(--seam);margin:6px 0 16px}
+.quilt .lp{width:93%;background-color:#e3a73d;background-image:repeating-linear-gradient(45deg,transparent 0 14px,rgba(120,70,10,.35) 14px 16px),repeating-linear-gradient(-45deg,transparent 0 14px,rgba(120,70,10,.35) 14px 16px);display:flex;align-items:center;padding-left:16px;font-family:var(--display);font-size:26px;color:#3a2307}
+.quilt .tm{width:7%;background:var(--mask)}
+.split-legend{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:600px){.split-legend{grid-template-columns:1fr}}
+.split-legend > div{min-width:0}
+.split-legend b{font-family:var(--display);font-size:30px;display:block;line-height:1}
+.split-legend p{margin:4px 0 0;color:var(--cream-2);font-size:15px}
+.supply{font-family:var(--display);font-size:clamp(22px,6.4vw,46px);color:var(--lamp);line-height:1.05;overflow-wrap:anywhere}
+.nothing{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.nothing span{font-family:var(--mono);font-size:13px;border:1px solid var(--seam);border-radius:999px;padding:6px 12px;color:var(--cream-2)}
+.nothing span b{color:var(--mint)}
+.alarms{margin-top:22px}
+.alarms .row{display:grid;grid-template-columns:repeat(10,1fr);gap:6px;margin-top:10px}
+.alarms .row div{text-align:center;min-width:0}
+.alarms .row i{display:block;font-style:normal;font-size:clamp(16px,2.6vw,24px)}
+.alarms .row span{font-family:var(--mono);font-size:clamp(9px,1.4vw,12px);color:var(--cream-2)}
+
+/* routine */
+.routine{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;list-style:none;padding:0;margin:0;counter-reset:r}
+@media (max-width:900px){.routine{grid-template-columns:1fr 1fr}}
+@media (max-width:480px){.routine{grid-template-columns:1fr}}
+.routine li{counter-increment:r;background:var(--plum-2);border:2px solid var(--seam);border-radius:26px;padding:22px;min-width:0}
+.routine li::before{content:counter(r);display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:var(--lamp);color:#2a1a08;font-family:var(--display);font-size:22px;margin-bottom:12px}
+.routine h3{font-family:var(--display);font-size:22px;margin:0 0 6px}
+.routine p{margin:0;color:var(--cream-2);font-size:15px}
+
+/* schedule */
+.sched{list-style:none;margin:0;padding:0;display:grid;gap:10px;max-width:720px}
+.sched li{display:grid;grid-template-columns:110px 1fr;gap:16px;align-items:baseline;background:var(--plum-2);border:2px solid var(--seam);border-radius:18px;padding:14px 18px}
+.sched time{font-family:var(--mono);font-weight:600;color:#ff8b8b;font-variant-numeric:tabular-nums}
+.sched b{font-family:var(--display);font-size:22px;font-weight:400}
+.sched span{color:var(--cream-2);font-size:15px;margin-left:8px}
+.sched li.now{border-color:var(--lamp);background:color-mix(in srgb,var(--lamp) 12%,var(--plum-2))}
+@media (max-width:480px){.sched li{grid-template-columns:1fr;gap:2px}.sched span{display:block;margin-left:0}}
+
+/* dream journal (memes) */
+.journal{display:grid;grid-template-columns:1.1fr .9fr;gap:24px;align-items:start}
+@media (max-width:860px){.journal{grid-template-columns:1fr}}
+.journal > *{min-width:0}
+.polaroid{background:#fbf6ec;padding:12px 12px 16px;border-radius:6px;box-shadow:0 12px 0 rgba(0,0,0,.25);transform:rotate(-2deg);max-width:100%}
+.polaroid .meme{position:relative;aspect-ratio:1;overflow:hidden;border-radius:2px;background:#a8deaa}
+.polaroid img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.polaroid .note{font-family:var(--display);color:#3b2d5c;font-size:20px;text-align:center;margin-top:10px}
+.cap-t,.cap-b{position:absolute;left:4%;right:4%;text-align:center;font-family:"Anton",Impact,sans-serif;text-transform:uppercase;color:#fff;font-size:clamp(22px,4.4vw,40px);line-height:1.05;text-wrap:balance;
+  text-shadow:2px 2px 0 #000,-2px 2px 0 #000,2px -2px 0 #000,-2px -2px 0 #000,0 3px 0 #000,0 -3px 0 #000,3px 0 0 #000,-3px 0 0 #000}
+.cap-t{top:4%}.cap-b{bottom:4%}
+.meme-ctrl{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:22px}
+.meme-ctrl .count{font-family:var(--mono);font-size:13px;color:var(--cream-2);margin-left:auto}
+.pins{display:grid;gap:22px}
+.pins .polaroid:nth-child(1){transform:rotate(3deg)}
+.pins .polaroid:nth-child(2){transform:rotate(-1.5deg)}
+.two{display:grid;grid-template-columns:1fr 1fr;aspect-ratio:2/1;border-radius:2px;overflow:hidden}
+.two > div{position:relative;min-width:0}
+.two img{width:100%;height:100%;object-fit:cover;display:block}
+.two .lbl{position:absolute;left:0;right:0;bottom:0;padding:6px;font:800 12px var(--body);text-align:center;background:rgba(29,22,49,.85);color:var(--cream)}
+.trader{display:grid;place-items:center;background:#3a1220}
+.trader svg{width:84%;height:auto}
+.trader .face{position:absolute;top:8%;left:50%;transform:translateX(-50%);font-size:clamp(26px,5vw,40px)}
+
+/* house rules */
+.house{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;list-style:none;margin:0;padding:0}
+@media (max-width:640px){.house{grid-template-columns:1fr}}
+.house li{background:var(--plum-2);border:2px solid var(--seam);border-radius:20px;padding:18px 20px;min-width:0}
+.house b{display:block;font-size:17px}
+.house span{color:var(--cream-2);font-size:15px}
+
+.night{margin-top:72px;text-align:center;border-radius:32px;padding:48px 20px;border:2px solid var(--seam);background:radial-gradient(60% 90% at 50% 0%,rgba(255,184,92,.16),transparent 70%),var(--plum-2)}
+.night h2{margin-bottom:10px}
+.night p{color:var(--cream-2);margin:0 auto 22px;max-width:44ch}
+.night .btns{justify-content:center}
+footer{margin-top:48px;border-top:2px dashed var(--seam);padding-block:24px 44px;color:var(--cream-2);font-size:14px;display:grid;gap:8px}
+footer p{margin:0;max-width:78ch}
+
+@keyframes tw{0%,100%{opacity:.3}50%{opacity:1}}
+@keyframes blink{50%{opacity:0}}
+@keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.04)}}
+@keyframes float{0%{opacity:0;transform:translate(0,0)}20%{opacity:.95}100%{opacity:0;transform:translate(18px,-46px)}}
+@keyframes jolt{0%,100%{transform:rotate(0)}25%{transform:rotate(-8deg)}60%{transform:rotate(6deg)}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}.zz{opacity:.7}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="bar">
+    <a class="brand" href="#top"><img src="holdnap-logo.webp" alt="">Holdnap</a>
+    <nav aria-label="Sections">
+      <a href="#rules">Rules of the Nap</a>
+      <a href="#tokenomics">Tokenomics</a>
+      <a href="#routine">How to buy</a>
+      <a href="#dreams">Memes</a>
+    </nav>
+    <span class="dnd-pill">Do not disturb</span>
+  </div>
+</header>
+
+<div class="wrap" id="top">
+  <div class="hero">
+    <div class="copy">
+      <div class="shh">Shh. It's 3 AM.</div>
+      <h1>Holdnap</h1>
+      <p class="tag">The meme coin you don't have to watch.</p>
+      <p class="lede">$HOLDNAP is a Solana meme coin built so there's nothing to babysit: liquidity burned forever, team tokens locked for 5 years, no presale, no taxes. Buy, close the app, go to bed.</p>
+      <div class="btns">
+        <a class="btn lamp" id="tgBtn" href="#" target="_blank" rel="noopener">Join the Nap Squad</a>
+        <a class="btn" id="xBtn" href="#" target="_blank" rel="noopener">Follow on X</a>
+      </div>
+    </div>
+    <div>
+      <div class="room" id="room" role="img" aria-label="A dark bedroom at 3 AM: the Holdnap duck asleep in bed, a lamp glowing, an alarm clock on the nightstand">
+        <div class="window"><div class="moon"></div>
+          <span class="tw" style="left:14%;top:22%"></span><span class="tw" style="left:30%;top:62%;animation-delay:1s"></span><span class="tw" style="left:66%;top:72%;animation-delay:2s"></span><span class="tw" style="left:44%;top:30%;animation-delay:.5s"></span>
+        </div>
+        <div class="glow"></div>
+        <div class="nightlamp"><div class="shade"></div><div class="pole"></div><div class="base"></div></div>
+        <div class="stand"></div>
+        <div class="clock"><div class="digits" id="clock">03<span class="colon">:</span>00</div><div class="ampm">AM · alarm off</div></div>
+        <div class="bed">
+          <div class="headboard"></div>
+          <div class="mattress"></div>
+          <div class="pillow"></div>
+          <div class="blanket"></div>
+          <div class="duck"><img src="holdnap-logo.webp" alt=""></div>
+        </div>
+        <span class="zz a">z</span><span class="zz b">Z</span><span class="zz c">z</span>
+        <div class="bubble" id="bubble">5 more minutes...</div>
+      </div>
+      <div class="snooze-row">
+        <button type="button" class="snooze" id="snoozeBtn">⏰ Snooze</button>
+        <span class="snooze-count" id="snoozeCount">Snoozes tonight: 0</span>
+      </div>
+    </div>
+  </div>
+
+  <section id="rules">
+    <p class="kicker">What "nap" actually means</p>
+    <h2>The Rules of <span class="w">the Nap</span></h2>
+    <div class="rules">
+      <div class="rule"><div class="no">Rule one</div><h3>Nobody can pull the blanket</h3><p>93% of the supply sits in the liquidity pool, and the LP tokens are burned with Raydium Burn &amp; Earn. The pool can never be removed, by anyone.</p><span class="proof">Burn proof link at launch</span></div>
+      <div class="rule"><div class="no">Rule two</div><h3>The team sleeps for 5 years</h3><p>The 7% team share is locked on-chain and wakes up in 10 small parts, one every 6 months. No surprise dumps at 3 AM.</p><span class="proof">Lock link at launch</span></div>
+      <div class="rule"><div class="no">Rule three</div><h3>No wake-up calls</h3><p>No presale, no buy or sell tax, no airdrop to claim. Mint and freeze are revoked, so no new tokens can appear and nobody can freeze yours.</p><span class="proof">Check it on RugCheck</span></div>
+      <div class="rule"><div class="no">Rule four</div><h3>A quiet room</h3><p>Our Telegram is calm on purpose: updates, memes and the official address. No spam, no "DM me", no shouting. A bot keeps scammers out.</p><span class="proof">Read-only before launch</span></div>
+    </div>
+  </section>
+
+  <section id="contract">
+    <p class="kicker">Official contract address</p>
+    <h2>Check the <span class="w">door</span> first</h2>
+    <div class="door">
+      <div class="hanger" aria-hidden="true"><b>Do not disturb</b><span>Duck is holding</span></div>
+      <div class="card ca-box">
+        <span class="ca-status" id="caStatus">● Not launched yet</span>
+        <div class="ca-row">
+          <code id="caText">The official address appears here at launch, and on X (@HoldnapCoin) and in our Telegram. Anything shared before then is fake.</code>
+          <button type="button" id="copyBtn" disabled>Copy</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="tokenomics">
+    <p class="kicker">Tokenomics</p>
+    <h2>One <span class="w">quilt</span>, two pieces</h2>
+    <div class="card">
+      <div class="supply">1,000,000,000,000</div>
+      <div style="color:var(--cream-2);margin-top:4px">$HOLDNAP total supply. Fixed forever.</div>
+      <div class="quilt" role="img" aria-label="93% liquidity, 7% team"><div class="lp">93%</div><div class="tm"></div></div>
+      <div class="split-legend">
+        <div><b style="color:var(--lamp)">93%</b><p>Liquidity pool. LP tokens burned forever.</p></div>
+        <div><b style="color:var(--mask)">7%</b><p>Team, locked. 10 equal unlocks over 5 years.</p></div>
+      </div>
+      <div class="nothing"><span><b>0</b> presale</span><span><b>0%</b> tax</span><span><b>0</b> airdrops</span><span><b>0</b> new tokens, ever</span></div>
+      <div class="alarms">
+        <div style="font-weight:800">Team wake-up schedule</div>
+        <div class="row" aria-label="Team unlocks at 6, 12, 18, 24, 30, 36, 42, 48, 54 and 60 months after launch">
+          <div><i>⏰</i><span>6m</span></div><div><i>⏰</i><span>1y</span></div><div><i>⏰</i><span>18m</span></div><div><i>⏰</i><span>2y</span></div><div><i>⏰</i><span>30m</span></div>
+          <div><i>⏰</i><span>3y</span></div><div><i>⏰</i><span>42m</span></div><div><i>⏰</i><span>4y</span></div><div><i>⏰</i><span>54m</span></div><div><i>⏰</i><span>5y</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="routine">
+    <p class="kicker">How to buy</p>
+    <h2>Bedtime <span class="w">routine</span></h2>
+    <ol class="routine">
+      <li><h3>Get SOL</h3><p>Buy SOL on an exchange like Kraken, Coinbase or Newton.</p></li>
+      <li><h3>Move it to Phantom</h3><p>Install Phantom and send your SOL there. Send a small test first.</p></li>
+      <li><h3>Swap for $HOLDNAP</h3><p>Tap Swap, paste the official address from the door hanger, keep slippage around 5 to 10%.</p></li>
+      <li><h3>Lights off</h3><p>Close the chart. Phone in another room. You're done.</p></li>
+    </ol>
+  </section>
+
+  <section id="tonight">
+    <p class="kicker">Roadmap</p>
+    <h2>Tonight's <span class="w">schedule</span></h2>
+    <ol class="sched">
+      <li><time>10:00 PM</time><div><b>Buy</b><span>Get some $HOLDNAP.</span></div></li>
+      <li><time>10:01 PM</time><div><b>Hold</b><span>Put the phone down.</span></div></li>
+      <li class="now"><time>10:02 PM</time><div><b>Nap</b><span>You are here.</span></div></li>
+      <li><time>07:00 AM</time><div><b>Snooze</b><span>Repeat as needed.</span></div></li>
+    </ol>
+  </section>
+
+  <section id="dreams">
+    <p class="kicker">Meme lab</p>
+    <h2>The dream <span class="w">journal</span></h2>
+    <div class="journal">
+      <div>
+        <div class="polaroid">
+          <div class="meme" aria-live="polite">
+            <img src="holdnap-meme.webp" alt="The Holdnap duck asleep">
+            <div class="cap-t" id="memeTop">Red candles?</div>
+            <div class="cap-b" id="memeBot">Never heard of them</div>
+          </div>
+          <div class="note">dream #<span id="memeNo">1</span></div>
+        </div>
+        <div class="meme-ctrl">
+          <button type="button" class="btn lamp" id="memeNext">🎲 New dream</button>
+          <button type="button" class="btn" id="memeCopy">Copy caption</button>
+          <span class="count" id="memeCount">1 / 24</span>
+        </div>
+      </div>
+      <div class="pins">
+        <div class="polaroid">
+          <div class="two" role="img" aria-label="Meme: traders at 3 AM panic at a red chart, Holdnap holders at 3 AM are asleep">
+            <div class="trader"><span class="face">😵</span><svg viewBox="0 0 120 70" aria-hidden="true"><polyline points="4,10 20,14 30,8 42,28 52,24 64,44 74,38 88,58 100,54 116,66" fill="none" stroke="#ff6b6b" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/></svg><span class="lbl">Traders, 3 AM</span></div>
+            <div><img src="holdnap-meme.webp" alt=""><span class="lbl">$HOLDNAP, 3 AM</span></div>
+          </div>
+          <div class="note">same night, different vibes</div>
+        </div>
+        <div class="polaroid">
+          <div class="meme" role="img" aria-label="Meme: team tokens? Locked. Go back to sleep.">
+            <img src="holdnap-vault.webp" alt="">
+            <div class="cap-t" style="font-size:clamp(18px,3vw,28px)">Team tokens?</div>
+            <div class="cap-b" style="font-size:clamp(18px,3vw,28px)">Locked. Go back to sleep.</div>
+          </div>
+          <div class="note">the vault never wakes up</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="safety">
+    <p class="kicker">Stay safe</p>
+    <h2>House <span class="w">rules</span></h2>
+    <ul class="house">
+      <li><b>We never DM you first.</b><span>Anyone messaging you as "support" or "admin" is a scammer.</span></li>
+      <li><b>Never share your seed phrase.</b><span>Not with us, not with anyone, not on any website.</span></li>
+      <li><b>Only one official address.</b><span>From this page, X (@HoldnapCoin) and our Telegram pinned menu.</span></li>
+      <li><b>No presale, no airdrop.</b><span>There's nothing to claim or pay for. Ignore anyone offering one.</span></li>
+    </ul>
+  </section>
+
+  <div class="night">
+    <h2>Good <span class="w">night</span>, Nap Squad</h2>
+    <p>Updates, memes and the official address, in a quiet room with no spam.</p>
+    <div class="btns">
+      <a class="btn lamp" id="tgBtn2" href="#" target="_blank" rel="noopener">Join Telegram</a>
+      <a class="btn" id="xBtn2" href="#" target="_blank" rel="noopener">Follow @HoldnapCoin</a>
+    </div>
+  </div>
+
+  <footer>
+    <p><b>Disclaimer:</b> $HOLDNAP is a meme coin made for fun. It has no intrinsic value and no promise of financial return. Crypto is risky. Never put in more than you can afford to lose.</p>
+    <p>© Holdnap · Buy. Hold. Nap.</p>
+  </footer>
+</div>
+
+<script>
+/* ===== Edit these three lines ===== */
+const CONTRACT_ADDRESS = "";   // paste the official address on launch day
+const X_LINK = "https://x.com/HoldnapCoin";
+const TELEGRAM_LINK = "https://t.me/+cOtzB73VylVjNDA1";
+/* ================================== */
+
+for (const id of ["xBtn", "xBtn2"]) document.getElementById(id).href = X_LINK;
+for (const id of ["tgBtn", "tgBtn2"]) document.getElementById(id).href = TELEGRAM_LINK;
+
+const caText = document.getElementById("caText"), copyBtn = document.getElementById("copyBtn");
+if (CONTRACT_ADDRESS) {
+  caText.textContent = CONTRACT_ADDRESS; copyBtn.disabled = false;
+  document.getElementById("caStatus").textContent = "● Live on Solana. Only trust this address.";
+}
+copyBtn.addEventListener("click", () => {
+  const ok = () => { copyBtn.textContent = "Copied"; setTimeout(() => copyBtn.textContent = "Copy", 1800); };
+  const sel = () => { const r = document.createRange(); r.selectNodeContents(caText); const s = getSelection(); s.removeAllRanges(); s.addRange(r); copyBtn.textContent = "Selected"; };
+  try { navigator.clipboard.writeText(CONTRACT_ADDRESS).then(ok, sel); } catch (e) { sel(); }
+});
+
+/* snooze alarm */
+const lines = ["5 more minutes...", "5 more years...", "Is the chart up? Don't tell me.", "Wake me at the moon.", "zzz... hold... zzz", "Not now, I'm holding.", "Liquidity's burned. Let me sleep.", "Team's locked. So am I.", "One more nap.", "Shh."];
+let snoozes = 0, mins = 0, bubbleT;
+const room = document.getElementById("room"), bubble = document.getElementById("bubble");
+document.getElementById("snoozeBtn").addEventListener("click", () => {
+  snoozes++; mins += 9;
+  const h = 3 + Math.floor(mins / 60), m = mins % 60;
+  document.getElementById("clock").innerHTML = String(h).padStart(2, "0") + '<span class="colon">:</span>' + String(m).padStart(2, "0");
+  document.getElementById("snoozeCount").textContent = "Snoozes tonight: " + snoozes;
+  bubble.textContent = lines[(snoozes - 1) % lines.length];
+  bubble.classList.add("show"); clearTimeout(bubbleT); bubbleT = setTimeout(() => bubble.classList.remove("show"), 2600);
+  room.classList.remove("jolt"); void room.offsetWidth; room.classList.add("jolt");
+});
+
+/* dream journal memes */
+const MEMES = [
+  ["Red candles?", "Never heard of them"], ["Market crashed", "Didn't notice"], ["My trading strategy", "Close my eyes"],
+  ["Checked the chart once", "Needed a nap after"], ["Best time to check the chart?", "Tomorrow"], ["Bears growled", "Duck rolled over"],
+  ["Diamond hands?", "Sleepy wings"], ["Wen moon?", "Wake me when we're there"], ["5 more minutes", "5 more years"],
+  ["Some coins pump. Some dump.", "This one sleeps"], ["Traders: 6 coffees", "Holders: 1 pillow"], ["Not lazy", "Energy-saving mode"],
+  ["Sleep is free", "Panic is expensive"], ["Me after buying $HOLDNAP", "Goodnight"], ["Woke up, checked chart", "Went back to sleep"],
+  ["My retirement plan", "Nap"], ["Even asleep", "I don't sell"], ["Bear market?", "Never heard of her"],
+  ["Phone in another room", "Peak trading"], ["Liquidity: burned", "Duck: asleep"], ["Alarm set for 7 AM", "Snoozed until 2029"],
+  ["Screen time: 0 min", "Sleep time: 14 h"], ["They said: wake up", "The duck said: no"], ["Buy. Hold.", "Nap."]
+];
+let mi = 0;
+function showMeme(i) {
+  mi = (i + MEMES.length) % MEMES.length;
+  document.getElementById("memeTop").textContent = MEMES[mi][0];
+  document.getElementById("memeBot").textContent = MEMES[mi][1];
+  document.getElementById("memeNo").textContent = mi + 1;
+  document.getElementById("memeCount").textContent = (mi + 1) + " / " + MEMES.length;
+}
+document.getElementById("memeNext").addEventListener("click", () => { let n = mi; while (n === mi) n = Math.floor(Math.random() * MEMES.length); showMeme(n); });
+document.getElementById("memeCopy").addEventListener("click", function () {
+  const b = this, t = MEMES[mi][0] + " / " + MEMES[mi][1] + " 😴🦆 $HOLDNAP";
+  try { navigator.clipboard.writeText(t).then(() => { b.textContent = "Copied"; setTimeout(() => b.textContent = "Copy caption", 1600); }, () => { b.textContent = "Copy failed"; }); } catch (e) { b.textContent = "Copy failed"; }
+});
+showMeme(0);
+</script>
+
+</body>
+</html>
